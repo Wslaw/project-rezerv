@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Резерв+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+  @font-face {
+  font-family: 'Gordon Medium';
+  src: url('fonts/GordonMedium.woff2') format('woff2');
+}
+  @font-face {
+  font-family: 'ManegeDemo-Light'; /* Имя шрифта */
+  src: url('fonts/ManegeDemo-Light.woff2') format('woff2'); /* Путь к шрифту */
+  font-weight: normal; /* Укажите желаемый вес шрифта */
+  font-style: normal; /* Укажите стиль шрифта */
+}
+@font-face {
+  font-family: 'Gordon';
+  src: url('fonts/gordon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'Breul Grotesk A Regular';
+    src: url('fonts/BreulGroteskA-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: #e1decb;
+      font-family: serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 10px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      display: inline-block;
+      color: #000;
+    }
+
+    h1::after {
+      content: "+";
+      color: #fea500;
+      position: relative;
+      top: -5px;
+    }
+
+    h2 {
+      font-size: 12px;
+      font-weight: 400;
+      color: #000022;
+      margin: 0;}
+    .icon-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  gap: 8px;}
+
+    .icon-wrapper i {
+      font-size: 20px;  /* Убедитесь, что размер иконок установлен */}
+
+    .qr-frame {
+      position: relative;
+      font-size: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      padding: 2px;
+    }
+
+    .qr-frame span {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+    }
+
+    .corner-tl {
+      top: 0;
+      left: 0;
+      border-top: 2px solid black;
+      border-left: 2px solid black;
+    }
+
+    .corner-tr {
+      top: 0;
+      right: 0;
+      border-top: 2px solid black;
+      border-right: 2px solid black;
+    }
+
+    .corner-bl {
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid black;
+      border-left: 2px solid black;
+    }
+
+    .corner-br {
+      bottom: 0;
+      right: 0;
+      border-bottom: 2px solid black;
+      border-right: 2px solid black;
+    }
+
+    main {
+      flex: 1;
+      padding: 18px;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      border: 1px solid #999999;
+      border-radius: 16px;
+      background-color:#d5d3be;
+    }
+
+    .card.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      backface-visibility: hidden;
+      box-sizing: border-box;
+    }
+
+    .card-front {
+      background-color: #d5d3be;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+
+    .card-back {
+      background-color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+    }
+
+    .title-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+    .title-block .title-text {
+      font-family: 'ManegeDemo-Light';
+      font-size: 22px;
+      color: #000;
+      line-height: 1.2;
+      font-weight: 600;
+      
+    }
+
+    
+  .trident {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+    .status {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+font-family:Breul Grotesk A Regular;
+    }
+    
+    .status .check i {
+      font-size: 10px;
+      
+      transform: scale(0.7);
+    }
+
+    .status .check {
+      width: 16px;
+      height: 16px;
+      background-color: #498938;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      margin-right: 8px;
+    }
+.info-block {
+  margin-top: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.info-block-date {
+  color:#54544c;
+  margin-bottom: 10px;}
+  
+  .info-bron {
+    list-style-type:none;
+    margin-left: 0;
+    padding-left: 0;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #212100;
+}
+  .info-bron-vid{
+    margin-bottom: 10px;
+    
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .info-bron-date {
+    font-family:"Roboto", serif;
+    font-size:16px;
+    font-weight:500;
+    color: #666666;
+  }
+  .info-block-date1{
+    font-family:'Roboto', serif;
+    font-size: 16px;
+      font-weight: 500;
+  }
+
+    .ticker {
+      margin: 30px -16px 0;
+      background-color: #6b4b1a;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      height: 36px;
+      font-size:14px;
+      line-height:36px;
+    }
+
+   .ticker span {
+  display: inline-block;
+  transform: translateX(0); /* Старт с текущего положения */
+  animation: scrollText 25s linear infinite;
+}
+
+
+    
+  @keyframes scrollText {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+
+    .details {
+      padding-left:0px;
+      list-style-type:none;
+      font-family:'Gordon';
+      margin-top: 16px;
+      font-size: 12px;
+      gap: 20px;
+    }
+  .details .details-zvan{
+    padding:10px 0 10px;}
+  
+  .details-zvan {
+    font-family:'Gordon';
+    font-size:14px;
+    padding-bottom:0px;
+    letter-spacing:1.4;
+  }
+  .details-family {
+   font-family: 'Gordon';
+    margin-top: 0px ;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  .details-fio {
+   font-weight: 500;
+    font-size:24px;
+  }
+
+    .menu-icon {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background-color: #fc890a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: #000;
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 10px 25px;
+    }
+
+    footer ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-content {
+      overflow: visible;
+      background-color: white;
+      padding: 0 20px 0 24px;
+      border-radius: 16px;
+      width: 300px;
+      height:auto;
+      margin-bottom:0px;
+      border:2px dashed blue;
+    }
+
+    .modal-content a {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* расстояние между иконкой и текстом */
+  margin-bottom: 20px; /* расстояние между строками */
+  text-decoration: none;
+  color: black;
+}
+
+
+    .modal-content a i {
+      margin-right: 10px;
+     
+    }
+  
+.modal-handle {
+  width: 50px;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  margin: 0px auto 32px auto;
+}
+
+  
+  .qr-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    text-align: center;
+  color:#999999;
+    font-family:Breul Grotesk A Regular;
+}
+
+.qr-label {
+  padding:30px 0px 40px;
+
+  font-size: 12px;
+  font-weight: 300;
+ color:#212100;
+  
+}
+  .icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-label {
+  display: block;
+  font-size: 12px;
+}
+
+  
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Резерв</h1>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <h2 style="margin-right:10px">Сканувати <br>документ</h2>
+      <div class="qr-frame">
+        QR
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card-container">
+      <div class="card" id="card">
+        <div class="card-face card-front" onclick="flipCard()">
+          <div class="title-block">
+            <div class="title-text">
+              Військово-<br>обліковий<br>документ
+            </div>
+   
+            
+  <div class="trident">
+ <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="42.000000pt" height="42.000000pt" viewBox="0 0 512.000000 512.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+fill="#000" stroke="#fff">
+<path d="M903 3058 c3 -1422 4 -1559 20 -1623 33 -135 126 -292 218 -367 95
+-78 247 -161 822 -449 l597 -299 598 299 c574 288 726 371 821 449 92 75 185
+232 218 367 16 64 17 201 20 1623 l4 1552 -1661 0 -1661 0 4 -1552z m1732
+1085 c36 -43 83 -112 105 -154 85 -163 92 -296 36 -714 -87 -654 -79 -809 61
+-1199 l57 -158 68 4 c118 9 212 72 270 180 19 36 23 58 23 138 0 87 -3 100
+-30 149 -37 67 -104 126 -168 149 l-50 17 7 110 c22 363 115 685 264 908 54
+81 179 201 251 240 l51 28 0 -1150 0 -1151 -319 0 -318 0 -7 -58 c-16 -141
+-80 -257 -233 -422 -48 -53 -100 -110 -115 -128 l-28 -34 -27 34 c-16 18 -67
+75 -116 127 -151 163 -217 282 -233 424 l-7 57 -318 0 -319 0 0 1151 0 1150
+51 -28 c122 -67 261 -230 340 -398 99 -211 179 -575 179 -814 0 -46 0 -46 -48
+-64 -64 -22 -136 -87 -170 -151 -24 -45 -27 -62 -27 -146 0 -80 4 -102 23
+-138 58 -108 152 -171 271 -180 l68 -4 56 155 c140 386 148 547 61 1202 -55
+410 -49 547 30 703 44 88 164 242 187 242 5 0 37 -35 74 -77z"/>
+</g>
+</svg>
+
+</div>
+
+
+ </div>
+
+          <div class="status">
+            <div class="check"><i class="fas fa-check"></i></div>
+            Дані уточнено вчасно.
+          </div>
+
+          <div class="info-block">
+            <div class="info-block-date">Дата народження</div>
+            <div class="info-block-date1">16.12.1970</div>
+          </div>
+          
+          <ul class="info-bron">
+            <li class="info-bron-vid">Відстрочка до</li>
+            <li class="info-bron-date">08.05.2025</li>
+          </ul>
+
+          <div class="ticker">
+            <span>Документ оновлено в 16.55 | 18.04.2025 &nbsp;&nbsp;  На обліку · Документ оновлено в 16.55 | 18.04.2025  На обліку · Документ оновлено в 16.55 | 18.04.2025 &nbsp;&nbsp;  На обліку · Документ оновлено в 16.55 | 18.04.2025  На обліку ·</span>
+
+          </div>
+
+          <ul class="details">
+            <li class="details-zvan">Військовозобов'язаний</li>
+            <li class="details-family">ПРОЦЕНКО</li>
+            <li class="details-fio">Вячеслав<br>
+            Петрович</li>
+          </ul>
+
+          <div class="menu-icon" onclick="showModal(event)">
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+        </div>
+<div class="card-face card-back" onclick="flipCard()">
+  <div class="qr-content">
+    <div class="qr-label">Код дійсний до 21.04.2026</div>
+    <img 
+  src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fexample.com%2Fdoc%3Fid%3D1234567890%26token%3Dabcdef123456%26type%3Dreserve%26valid%3D2026-04-21&amp;size=450x450&amp;ecc=H
+ 
+  alt="QR Code" 
+  style="width: 250px; height: 250px; image-rendering: pixelated; filter: contrast(100%) brightness(90%);"
+/>
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+  <ul>
+    <li>
+     <div class="icon-wrapper">
+  <i class="fas fa-briefcase"></i>
+  <span class="icon-label">Вакансії</span>
+</div>
+
+    </li>
+    <li>
+      <div class="icon-wrapper">
+        <i class="fas fa-file-alt"></i> <!-- Иконка для документа -->
+        Документ
+      </div>
+    </li>
+    <li>
+      <div class="icon-wrapper">
+        <i class="fas fa-bars"></i> <!-- Иконка для меню -->
+        Меню
+      </div>
+    </li>
+  </ul>
+</footer>
+
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+       <div class="modal-handle"></div>
+      <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 50 50">
+        <path d="M25 2C12.31 2 2 12.31 2 25s10.31 23 23 23 23-10.31 23-23S37.69 2 25 2zm0 2c11.61 0 21 9.39 21 21s-9.39 21-21 21S4 36.61 4 25 13.39 4 25 4zm0 7a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3zm-4 10v2h2v13h-2v2h8v-2h-2V21h-6z"/>
+      </svg> Повна інформація</a>
+      <a href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48">
+    <path d="M12.5 4C10.032 4 8 6.032 8 8.5v31c0 2.468 2.032 4.5 4.5 4.5h23c2.468 0 4.5-2.032 4.5-4.5v-23a1.5 1.5 0 0 0-.44-1.06l-.015-.016L28.56 4.439A1.5 1.5 0 0 0 27.5 4h-15zm0 3H26v6.5c0 2.468 2.032 4.5 4.5 4.5H37v21.5c0 .846-.654 1.5-1.5 1.5h-23c-.846 0-1.5-.654-1.5-1.5v-31c0-.846.654-1.5 1.5-1.5zM29 9.121 34.879 15H30.5c-.846 0-1.5-.654-1.5-1.5V9.121zM17.5 22a1.5 1.5 0 1 0 0 3h8.5a1.5 1.5 0 1 0 0-3h-8.5zm0 6a1.5 1.5 0 1 0 0 3h13a1.5 1.5 0 1 0 0-3h-13z"/>
+  </svg> Завантажити PDF</a>
+      <a href="#"><i class="fas fa-sync-alt"></i> Оновити документ</a>
+      <a href="#"><i class="fas fa-clock"></i> Подати запит на відсрочку</a>
+      <a href="#"><i class="fas fa-medkit"></i> Направлення на ВЛК</a>
+      <a href="#"><i class="fas fa-pencil-alt"></i> Уточнити контактні дані</a>
+    </div>
+  </div>
+
+  <script>
+    function flipCard() {
+      document.getElementById('card').classList.toggle('flipped');
+    }
+
+    function showModal(event) {
+      event.stopPropagation();
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === document.getElementById('modal')) {
+        document.getElementById('modal').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

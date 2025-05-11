@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Резерв+</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: #e1decb;
+      font-family: serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 10px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+      display: inline-block;
+      color: #000;
+    }
+
+    h1::after {
+      content: "+";
+      color: orange;
+      position: relative;
+      top: -5px;
+    }
+
+    h2 {
+      font-size: 12px;
+      font-weight: 400;
+      color: #000022;
+      margin: 0;
+    }
+
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-wrapper i {
+      font-size: 20px;
+    }
+
+    .qr-frame {
+      position: relative;
+      font-size: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      padding: 2px;
+    }
+
+    .qr-frame span {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+    }
+
+    .corner-tl {
+      top: 0;
+      left: 0;
+      border-top: 2px solid black;
+      border-left: 2px solid black;
+    }
+
+    .corner-tr {
+      top: 0;
+      right: 0;
+      border-top: 2px solid black;
+      border-right: 2px solid black;
+    }
+
+    .corner-bl {
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid black;
+      border-left: 2px solid black;
+    }
+
+    .corner-br {
+      bottom: 0;
+      right: 0;
+      border-bottom: 2px solid black;
+      border-right: 2px solid black;
+    }
+
+    main {
+      flex: 1;
+      padding: 18px;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      border: 1px solid #232323;
+      border-radius: 16px;
+      background-color: #d5d3be;
+    }
+
+    .card.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      backface-visibility: hidden;
+      box-sizing: border-box;
+    }
+
+    .card-front {
+      background-color: #d5d3be;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+
+    .card-back {
+      background-color: #000;
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+    }
+
+    .title-block {
+      display: flex;
+      align-items: center;
+      
+    }
+
+    .title-block .title-text {
+      line-height: 1.3;
+      font-weight: bold;
+    
+    }
+
+    .title-block .trident {
+      width: 64px;
+      height: 64px;
+      margin-left: 20px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Coat_of_Arms_of_Ukraine.svg/800px-Coat_of_Arms_of_Ukraine.svg.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    .status {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .status .check i {
+      font-size: 10px;
+      transform: scale(0.7);
+    }
+
+    .status .check {
+      width: 16px;
+      height: 16px;
+      background-color: #498938;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      margin-right: 8px;
+    }
+
+    .info-block {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .ticker {
+      margin-top: 30px;
+      background-color: #6b4b1a;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      height: 24px;
+    }
+
+    .ticker span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 25s linear infinite;
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .details {
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .menu-icon {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background-color: #fc890a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: #000;
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 10px 25px;
+    }
+
+    footer ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+    }
+
+    .modal-content a {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: black;
+    }
+
+    .modal-content a i {
+      margin-right: 10px;
+    }
+
+    .qr-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-label {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #212100;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Резерв</h1>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <h2 style="margin-right:10px">Сканувати <br>документ</h2>
+      <div class="qr-frame">
+        QR
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card-container">
+      <div class="card" id="card">
+        <div class="card-face card-front" onclick="flipCard()">
+          <div class="title-block">
+            <div class="title-text">
+              Військово<br>обліковий<br>документ<br>(еВОД)
+            </div>
+            <div class="trident"></div>
+          </div>
+
+          <div class="status">
+            <div class="check"><i class="fas fa-check"></i></div>
+            Дані уточнено вчасно.
+          </div>
+
+          <div class="info-block">
+            <div>Дата народження</div>
+            <div><strong>16.12.1970</strong></div>
+          </div>
+
+          <div class="ticker">
+            <span>Документ оновлено в 16.55 | 18.04.2025. На облику. Документ оновлено в 16.55 | 18.04.2025. На облику.</span>
+          </div>
+
+          <div class="details">
+            Військовозобов'язаний<br>
+            <strong>ПРОЦЕНКО</strong><br>
+            Вячеслав<br>
+            Петрович
+          </div>
+
+          <div class="menu-icon" onclick="showModal(event)">
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+        </div>
+
+        <div class="card-face card-back" onclick="flipCard()">
+          <div class="qr-content">
+            <div class="qr-label">Код дійсний до 21.04.2026</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://example.com&size=150x150" alt="QR Code">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <ul>
+      <li>
+        <div class="icon-wrapper">
+          <i class="fas fa-briefcase"></i>
+          Вакансії
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrapper">
+          <i class="fas fa-file-alt"></i>
+          Документ
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrapper">
+          <i class="fas fa-bars"></i>
+          Меню
+        </div>
+      </li>
+    </ul>
+  </footer>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <a href="#"><i class="fas fa-info-circle"></i> Повна інформація</a>
+      <a href="#"><i class="fas fa-file-pdf"></i> Завантажити PDF</a>
+      <a href="#"><i class="fas fa-sync-alt"></i> Оновити документ</a>
+      <a href="#"><i class="fas fa-clock"></i> Подати запит на відсрочку</a>
+      <a href="#"><i class="fas fa-medkit"></i> Направлення на ВЛК</a>
+      <a href="#"><i class="fas fa-pencil-alt"></i> Уточнити контактні дані</a>
+    </div>
+  </div>
+
+  <script>
+    function flipCard() {
+      document.getElementById('card').classList.toggle('flipped');
+    }
+
+    function showModal(event) {
+      event.stopPropagation();
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === document.getElementById('modal')) {
+        document.getElementById('modal').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
